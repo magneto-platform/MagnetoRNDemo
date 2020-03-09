@@ -9,6 +9,7 @@ import {
 import React from 'react';
 
 import VerifyScreen from '../src/Auth/verify';
+import ReduxCount from '../reduxTest';
 
 
 class AuthNav extends React.Component {
@@ -28,6 +29,7 @@ function Navigators() {
     <NavigationContainer>
       <HomeStack.Navigator initialRouteName="Home" headerMode="none" >
         <HomeStack.Screen name="Home" component={VerifyScreen} />
+        <HomeStack.Screen name="HomeRedux" component={ReduxCount} />
       </HomeStack.Navigator>
     </NavigationContainer>
   );

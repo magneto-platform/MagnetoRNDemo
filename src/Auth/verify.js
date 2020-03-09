@@ -14,7 +14,7 @@ import {
 import VerifyCode from '../Component/verifyCode';
 import styles from './style';
 
-export default class VerifyScreen extends React.Component {
+class VerifyScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,6 +49,7 @@ export default class VerifyScreen extends React.Component {
       }, 1000);
   }
   handle_confirm = (code) => {
+    // alert(code)
     //***** set code state ********/
     this.setState({digits:code,TextColor:'#008BFF'});
     //********** error mode ********/
@@ -59,6 +60,7 @@ export default class VerifyScreen extends React.Component {
     spinner = <TouchableOpacity style={{ marginTop: 300 }}>
                 <ActivityIndicator size="large" color="#61ccf6" />
               </TouchableOpacity>;
+    const code = this.state.digits;
     return (
       <View style={styles.containerView}>
         <ScrollView vertical style={styles.scrollView}>
@@ -81,10 +83,11 @@ export default class VerifyScreen extends React.Component {
           :
           <Text style={styles.TimerText}>{this.state.Timer}s</Text>
           }
-          <Text style={[styles.ResendText,styles.TextVerify,this.state.Timer == 0  ? {color:'#008BFF'} : null]}>Resend code</Text>
+          <Text onPress={() => this.decrementCount()} style={[styles.ResendText,styles.TextVerify,this.state.Timer == 0  ? {color:'#008BFF'} : null]}>Resend code</Text>
           <TouchableOpacity
-            style={[styles.confrimView,this.state.digits ?{backgroundColor:'#008BFF'}: null]}>
-            <Text style={[styles.TextVerify,styles.TextConfirm,this.state.digits ? {color:'#FFFFFF'}: null]}>Verify code</Text>
+            onPress={() => this.incrementCount()}
+            style={[styles.confrimView,code && code.length >= 5 && code !== '00000'?{backgroundColor:'#008BFF'}: null]}>
+            <Text style={[styles.TextVerify,styles.TextConfirm,code && code.length >= 5 && code !== '00000'? {color:'#FFFFFF'}: null]}>Verify code</Text>
           </TouchableOpacity>
           <Modal
             animationType="fade"
@@ -101,3 +104,4 @@ export default class VerifyScreen extends React.Component {
     );
   }
 }
+export default VerifyScreen;
